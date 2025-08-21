@@ -118,7 +118,7 @@
 
         .btn {
             display: inline-block;
-            background-color: var(--accent);
+            background-color: var(--accent) !important;
             color: orange !important;
             padding: 0.8rem 2rem;
             border-radius: 50px;
@@ -782,4 +782,5 @@
             }
 
         }
+
 
