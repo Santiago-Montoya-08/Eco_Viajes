@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazonas - EcoViajes Colombia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+.stats {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://cdn.pixabay.com/photo/2022/07/25/15/16/amazon-7344034_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.destination-page-header {
+            height: 70vh; /* Menos alto que el principal para dejar espacio al contenido */
+            padding-top: 70px; /* Para que el contenido no quede debajo de la nav fija */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        /* Ajustes para que las tarjetas de itinerario y actividades se parezcan a feature-card */
+        .itinerary-grid, .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .itinerary-card, .activity-item {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .itinerary-card:hover, .activity-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .itinerary-card h3, .activity-item h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .itinerary-card ul {
+            list-style: none;
+            padding-left: 0;
+            text-align: left;
+        }
+        .itinerary-card li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .itinerary-card li::before {
+            content: '\f058'; /* FontAwesome check-circle */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .activity-item i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        .pricing-section .stat-item { /* Reutilizando stat-item para el precio */
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .pricing-section .stat-item h3 {
+            font-size: 2.5rem; /* Ajuste para el precio */
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .pricing-section .stat-item p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-section ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        .pricing-section li {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .pricing-section li i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        .pricing-section li .fa-check-circle {
+            color: var(--secondary);
+        }
+        .pricing-section li .fa-times-circle {
+            color: #dc3545;
+        }
+
+        /* Responsive adjustments for new sections */
+        @media (max-width: 768px) {
+            .destination-page-header {
+                height: 60vh;
+                padding-top: 80px;
+            }
+            .itinerary-grid, .activities-grid {
+                grid-template-columns: 1fr;
+            }
+            .pricing-section .stat-item {
+                padding: 1.5rem;
+            }
+            .pricing-section .stat-item h3 {
+                font-size: 2rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .destination-page-header {
+                height: 50vh;
+                padding-top: 70px;
+            }
+            .itinerary-card, .activity-item {
+                padding: 1.5rem;
+            }
+            .itinerary-card h3, .activity-item h3 {
+                font-size: 1.3rem;
+            }
+            .activity-item i {
+                font-size: 2.0rem;
+            }
+            .pricing-section .stat-item h3 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+<body>
+    <script src="./script_mejorado.js"></script>
+    <nav>
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            EcoViajes
+        </div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="Proyecto_Viajes.html#inicio">Inicio</a></li>
+            <li><a href="Proyecto_Viajes.html#nosotros">Nosotros</a></li>
+            <li><a href="Proyecto_Viajes.html#servicios">Servicios</a></li>
+            <li><a href="Proyecto_Viajes.html#destinos">Destinos</a></li>
+            <li><a href="Proyecto_Viajes.html#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header class="destination-page-header" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1593069567131-53a0614dde1d?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+        <div class="hero-content">
+            <h1>Amazonas Colombiano</h1>
+            <p>Sumérgete en el corazón de la selva, descubre su biodiversidad y conéctate con comunidades indígenas.</p>
+            <a href="#itinerario-section" class="btn">Ver Itinerario</a>
+        </div>
+    </header>
+
+    <section id="itinerario-section" class="features"> <!-- Reutilizando la clase 'features' para el padding y fondo -->
+        <div class="section-title">
+            <h2>Itinerario de 5 Días en el Amazonas</h2>
+        </div>
+        <div class="itinerary-grid">
+            <div class="itinerary-card">
+                <h3>Día 1: Llegada a Leticia y Encuentro con la Selva</h3>
+                <ul>
+                    <li>Llegada al aeropuerto de Leticia (Vasquez Cobo).</li>
+                    <li>Traslado a un eco-lodge sostenible en la ribera del río Amazonas.</li>
+                    <li>Almuerzo con productos locales.</li>
+                    <li>Caminata interpretativa nocturna para observar fauna (ranas, insectos, aves nocturnas).</li>
+                    <li>Cena y charla sobre la cultura amazónica.</li>
+                </ul>
+            </div>
+            <div class="itinerary-card">
+                <h3>Día 2: Aventura Fluvial y Comunidades Indígenas</h3>
+                <ul>
+                    <li>Desayuno.</li>
+                    <li>Paseo en bote por el río Amazonas, avistamiento de delfines rosados y grises.</li>
+                    <li>Visita a la Isla de los Micos y el Parque Ecológico Mundo Amazónico.</li>
+                    <li>Interacción cultural con la comunidad indígena Ticuna, aprendizaje de sus costumbres y artesanías.</li>
+                    <li>Regreso al eco-lodge, cena y pernoctación.</li>
+                </ul>
+            </div>
+            <div class="itinerary-card">
+                <h3>Día 3: Exploración de Lagos y Pesca Artesanal</h3>
+                <ul>
+                    <li>Desayuno.</li>
+                    <li>Excursión en canoa a lagos y quebradas cercanas, como el Lago Tarapoto.</li>
+                    <li>Pesca artesanal de pirañas y otras especies (con devolución).</li>
+                    <li>Observación de aves y flora acuática.</li>
+                    <li>Almuerzo tipo picnic en la selva.</li>
+                    <li>Tarde libre para relajarse o disfrutar de las instalaciones del lodge.</li>
+                </ul>
+            </div>
+            <div class="itinerary-card">
+                <h3>Día 4: Frontera y Cultura Trinacional</h3>
+                <ul>
+                    <li>Desayuno.</li>
+                    <li>Visita a Tabatinga (Brasil) y Santa Rosa (Perú) para experimentar la cultura de las tres fronteras.</li>
+                    <li>Compras de artesanías y productos locales en los mercados.</li>
+                    <li>Almuerzo en Tabatinga.</li>
+                    <li>Regreso a Leticia, tiempo para explorar la ciudad.</li>
+                    <li>Cena de despedida con sabores amazónicos.</li>
+                </ul>
+            </div>
+            <div class="itinerary-card">
+                <h3>Día 5: Despedida del Amazonas</h3>
+                <ul>
+                    <li>Desayuno.</li>
+                    <li>Últimas compras de souvenirs.</li>
+                    <li>Traslado al aeropuerto de Leticia para tomar el vuelo de regreso.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="features"> <!-- Reutilizando la clase 'features' para el padding y fondo -->
+        <div class="section-title">
+            <h2>Actividades Recomendadas</h2>
+        </div>
+        <div class="activities-grid">
+            <div class="activity-item">
+                <i class="fas fa-tree"></i>
+                <h3>Senderismo en Selva</h3>
+                <p>Explora senderos guiados, aprende sobre plantas medicinales y avista fauna.</p>
+            </div>
+            <div class="activity-item">
+                <i class="fas fa-fish"></i>
+                <h3>Pesca Deportiva</h3>
+                <p>Experimenta la pesca de pirañas y otras especies en los ríos y lagos.</p>
+            </div>
+            <div class="activity-item">
+                <i class="fas fa-users"></i>
+                <h3>Intercambio Cultural</h3>
+                <p>Visita comunidades indígenas y aprende de sus costumbres y artesanías.</p>
+            </div>
+            <div class="activity-item">
+                <i class="fas fa-water"></i>
+                <h3>Paseos en Canoa</h3>
+                <p>Navega por afluentes y lagos, ideal para la observación de aves y flora.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats pricing-section"> <!-- Reutilizando la clase 'stats' para el fondo y centrado -->
+        <div class="section-title">
+            <h2>Precios del Paquete (4 Noches / 5 Días)</h2>
+        </div>
+        <div class="pricing-section-content">
+            <div class="stat-item">
+                <h3>Paquete Ecoturístico Amazonas</h3>
+                <p style="font-size: 2.5rem; font-weight: bold; color: var(--accent); margin-bottom: 1.5rem;">Desde \$0.005 BTC por persona</p>
+                <p style="font-size: 1.1rem; font-weight: bold; color:var(--accent)">Por compras de 2 paquetes o más tendrás el 30% de descuento en uno de estos</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Alojamiento en eco-lodge (4 noches)</li>
+                    <li><i class="fas fa-check-circle"></i> Todas las comidas (desayuno, almuerzo, cena)</li>
+                    <li><i class="fas fa-check-circle"></i> Guías locales expertos</li>
+                    <li><i class="fas fa-check-circle"></i> Todas las actividades y excursiones mencionadas</li>
+                    <li><i class="fas fa-check-circle"></i> Traslados aeropuerto-lodge-aeropuerto</li>
+                    <li><i class="fas fa-check-circle"></i> Contribución a proyectos de conservación local</li>
+                    <li><i class="fas fa-times-circle"></i> Vuelos nacionales/internacionales no incluidos</li>
+                    <li><i class="fas fa-times-circle"></i> Bebidas alcohólicas y propinas no incluidas</li>
+                </ul>
+                <a href="Proyecto_Viajes.html#contacto" class="btn">¡Reserva Ahora!</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            EcoViajes Colombia
+        </div>
+        <ul class="footer-links">
+            <li><a href="Proyecto_Viajes.html#inicio">Inicio</a></li>
+            <li><a href="Proyecto_Viajes.html#nosotros">Nosotros</a></li>
+            <li><a href="Proyecto_Viajes.html#servicios">Servicios</a></li>
+            <li><a href="Proyecto_Viajes.html#destinos">Destinos</a></li>
+            <li><a href="Proyecto_Viajes.html#contacto">Contacto</a></li>
+        </ul>
+        <div class="social-links">
+            <a href="https://www.facebook.com/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/" aria-label="X (Twitter)"><i class="fab fa-x"></i></a>
+            <a href="https://www.linkedin.com/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.youtube.com/" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2025 EcoViajes Colombia. Todos los derechos reservados.</p>
+        <p>Pioneros en turismo sostenible y tecnología verde.</p>
+    </footer>
+</body>
+</html>
